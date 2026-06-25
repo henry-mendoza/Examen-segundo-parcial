@@ -1,0 +1,36 @@
+## Ignore Visual Studio temporary files, builds, and user settings
+.vs/
+[Dd]ebug/
+[Dd]ebugPublic/
+[Rr]elease/
+[Re]leases/
+x64/
+x86/
+build/
+bld/
+[Bb]in/
+[Oo]bj/
+out/
+[Log]/
+
+## Ignore database and docker local data
+data/
+*.db
+*.local
+
+## Ignore sensitive environment files
+.env
+appsettings.Development.json
+appsettings.local.json
+
+## User-specific files
+*.rsuser
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+## OS files
+Thumbs.db
+ehthumbs.db
+Desktop.ini

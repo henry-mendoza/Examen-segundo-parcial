@@ -1,0 +1,112 @@
+@BancaNet.Api_HostAddress = http://localhost:5275
+
+### 0. Iniciar Sesión como el Empleado Administrador (Pre-sembrado automáticamente en el startup)
+# @name loginAdmin
+POST {{BancaNet.Api_HostAddress}}/api/Auth/login
+Content-Type: application/json
+
+{
+  "email": "admin@bancanet.com",
+  "password": "Password123!"
+}
+
+### 1. Registrar un Empleado (Opcional, si deseas registrar un empleado adicional)
+# @name registrarEmpleado
+POST {{BancaNet.Api_HostAddress}}/api/Auth/register
+Content-Type: application/json
+
+{
+  "email": "empleado@bancanet.com",
+  "password": "Password123!",
+  "nombreCompleto": "Esteban Cajero",
+  "rol": "Empleado",
+  "cargo": "Cajero Principal",
+  "idSucursal": 1
+}
+
+### 2. Iniciar Sesión como Empleado
+# @name loginEmpleado
+POST {{BancaNet.Api_HostAddress}}/api/Auth/login
+Content-Type: application/json
+
+{
+  "email": "empleado@bancanet.com",
+  "password": "Password123!"
+}
+
+### 3. Registrar un Cliente
+# @name registrarCliente
+POST {{BancaNet.Api_HostAddress}}/api/Auth/register
+Content-Type: application/json
+
+{
+  "email": "carlos@bancanet.com",
+  "password": "Password123!",
+  "nombreCompleto": "Carlos Mendoza",
+  "rol": "Cliente",
+  "direccion": "Calle de las Flores #12",
+  "telefono": "555-987654"
+}
+
+### 4. Iniciar Sesión como Cliente
+# @name loginCliente
+POST {{BancaNet.Api_HostAddress}}/api/Auth/login
+Content-Type: application/json
+
+{
+  "email": "carlos@bancanet.com",
+  "password": "Password123!"
+}
+
+### 5. Obtener todas las Sucursales (Cualquier rol)
+GET {{BancaNet.Api_HostAddress}}/api/Sucursales
+Authorization: Bearer {{loginEmpleado.response.body.token}}
+Accept: application/json
+
+### 6. Crear una nueva Sucursal (Solo Empleados)
+POST {{BancaNet.Api_HostAddress}}/api/Sucursales
+Authorization: Bearer {{loginEmpleado.response.body.token}}
+Content-Type: application/json
+
+{
+  "nombre": "Sucursal Poniente",
+  "direccion": "Bulevar Poniente #789"
+}
+
+### 7. Crear un nuevo Préstamo para Carlos (Solo Empleados)
+# El idCliente = 1 es Carlos (primer cliente registrado)
+# El idEmpleado = 1 es Esteban (primer empleado registrado)
+POST {{BancaNet.Api_HostAddress}}/api/Prestamos
+Authorization: Bearer {{loginEmpleado.response.body.token}}
+Content-Type: application/json
+
+{
+  "monto": 12000.00,
+  "tasaInteres": 15.00,
+  "idCliente": 1,
+  "idEmpleado": 1,
+  "tasaMoraDiaria": 0.05,
+  "diasGracia": 3
+}
+
+### 8. Obtener todos los Préstamos como Empleado (Ve todos los préstamos de la red)
+GET {{BancaNet.Api_HostAddress}}/api/Prestamos
+Authorization: Bearer {{loginEmpleado.response.body.token}}
+Accept: application/json
+
+### 9. Obtener Préstamos como Cliente (Carlos solo ve su propio préstamo)
+GET {{BancaNet.Api_HostAddress}}/api/Prestamos
+Authorization: Bearer {{loginCliente.response.body.token}}
+Accept: application/json
+
+### 10. Registrar un Abono al Préstamo (Solo Empleados)
+# Abono de $1000 al préstamo con ID = 1
+# Se puede pasar opcionalmente 'fechaAbono' para simular un retraso y disparar la mora
+POST {{BancaNet.Api_HostAddress}}/api/Prestamos/1/abonos
+Authorization: Bearer {{loginEmpleado.response.body.token}}
+Content-Type: application/json
+
+{
+  "montoAbono": 1000.00,
+  "fechaAbono": "2026-08-15"
+}

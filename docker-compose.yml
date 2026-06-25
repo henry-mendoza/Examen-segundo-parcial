@@ -1,0 +1,11 @@
+services:
+  postgres:
+    image: postgres:16 # Versión estable de Postgres
+    container_name: postgres_dev # Nombre del contenedor
+    ports:
+      - "5433:5432" # Puerto estándar
+    environment:
+      POSTGRES_PASSWORD: 45th641tl # Contraseña
+      POSTGRES_DB: CinemaDB # Base de datos
+    volumes:
+      - ./data:/var/lib/postgresql/data # Persistencia: los datos se guardan en tu carpeta local

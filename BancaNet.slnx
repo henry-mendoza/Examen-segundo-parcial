@@ -1,0 +1,6 @@
+<Solution>
+  <Project Path="BancaNet.Api/BancaNet.Api.csproj" />
+  <Project Path="BancaNet.Application/BancaNet.Application.csproj" />
+  <Project Path="BancaNet.Domain/BancaNet.Domain.csproj" />
+  <Project Path="BancaNet.Infrastructure/BancaNet.Infrastructure.csproj" />
+</Solution>
