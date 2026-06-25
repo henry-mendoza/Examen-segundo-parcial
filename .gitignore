@@ -14,7 +14,7 @@ out/
 [Log]/
 
 ## Ignore database and docker local data
-data/
+/data/
 *.db
 *.local
 
