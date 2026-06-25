@@ -26,7 +26,7 @@ else
 }
 
 var host = Environment.GetEnvironmentVariable("HOST") ?? "localhost";
-var port = Environment.GetEnvironmentVariable("PORT") ?? "5432";
+var port = Environment.GetEnvironmentVariable("DB_PORT") ?? "5432";
 var database = Environment.GetEnvironmentVariable("DATABASE") ?? "BancaNet";
 var user = Environment.GetEnvironmentVariable("USER") ?? "postgres";
 var password = Environment.GetEnvironmentVariable("PASSWORD") ?? "admin123";
