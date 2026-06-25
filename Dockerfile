@@ -8,7 +8,7 @@ WORKDIR /src
 COPY . .
 
 # Restaurar dependencias
-RUN dotnet restore "BancaNet.Solution.slnx"
+RUN dotnet restore "BancaNet.slnx"
 
 # Publicar la API
 WORKDIR "/src/BancaNet.Api"
